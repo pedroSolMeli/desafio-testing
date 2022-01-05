@@ -78,7 +78,7 @@ public class LocalidadeService {
     }
 
     public static Localidade ConvertToObject(LocalidadeDTO dto) {
-        return Localidade.builder().nome(dto.getNome()).precoM2(dto.getPrecoM2()).build();
+        return Localidade.builder().id(dto.getId()).nome(dto.getNome()).precoM2(dto.getPrecoM2()).build();
     }
 
 }

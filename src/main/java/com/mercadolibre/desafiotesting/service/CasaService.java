@@ -21,12 +21,12 @@ public class CasaService {
     @Autowired
     CasaRepository casaRepository;
 
-    public List<Casa> buscarCasas(){
+    public List<Casa> buscarCasas() {
         List<Casa> casas = casaRepository.findAll();
         return casas;
     }
 
-    public Casa buscarCasaPorId(Long id){
+    public Casa buscarCasaPorId(Long id) {
         Casa casa = casaRepository.getById(id);
 
         if (casa == null)
@@ -35,13 +35,13 @@ public class CasaService {
         return casa;
     }
 
-    public Casa criarCasa(CasaRequestDTO casaDTO){
+    public Casa criarCasa(CasaRequestDTO casaDTO) {
         Casa casaConvertida = convertToObject(casaDTO);
         Casa casa = casaRepository.save(casaConvertida);
         return casa;
     }
 
-    public void removerCasaById(Long id){
+    public void removerCasaById(Long id) {
         Casa casa = casaRepository.getById(id);
         if (casa == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Casa com id: " + id + " não encontrada");
@@ -50,8 +50,8 @@ public class CasaService {
     }
 
     private Casa convertToObject(CasaRequestDTO dto) {
-        LocalidadeDTO localidadeDTO = localidadeService.buscarPorId(dto.getLocalidadeId());
-        return Casa.builder().nome(dto.getNome()).comodos(ComodoService.Converte(dto.getComodos())).localidade(LocalidadeService.ConvertToObject(localidadeDTO)).build();
+        Localidade localidade = LocalidadeService.ConvertToObject(localidadeService.buscarPorId(dto.getLocalidadeId()));
+        return Casa.builder().nome(dto.getNome()).comodos(ComodoService.Converte(dto.getComodos())).localidade(localidade).build();
     }
 
 //
