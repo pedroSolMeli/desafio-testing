@@ -11,7 +11,8 @@ public class ComodoResponseDTO {
 	private Double largura;
 	private Double comprimento;
 	private Double totalArea;
-	    
+	//TODO verificar com o time, flag para identificar o maior comodo //private Boolean maiorComodo;
+
 	public ComodoResponseDTO(Comodo comodo) {
 		this.nome = comodo.getNome();
 		this.largura = comodo.getLargura();

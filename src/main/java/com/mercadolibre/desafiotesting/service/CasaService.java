@@ -27,7 +27,7 @@ public class CasaService {
     }
 
     public Casa buscarCasaPorId(Long id) {
-        Casa casa = casaRepository.getById(id);
+        Casa casa = casaRepository.findById(id).orElse(null);
 
         if (casa == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Casa com id: " + id + " não encontrada");
@@ -42,10 +42,7 @@ public class CasaService {
     }
 
     public void removerCasaById(Long id) {
-        Casa casa = casaRepository.getById(id);
-        if (casa == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Casa com id: " + id + " não encontrada");
-
+        this.buscarCasaPorId(id);
         casaRepository.deleteById(id);
     }
 

@@ -1,8 +1,11 @@
 package com.mercadolibre.desafiotesting.controller;
 
 import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
+import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
+import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.service.CasaService;
+import com.mercadolibre.desafiotesting.service.ComodoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +20,9 @@ public class CasaController {
 
     @Autowired
     CasaService casaService;
+
+    @Autowired
+    ComodoService comodoService;
 
     @GetMapping
     public ResponseEntity<?> buscarCasas(){
@@ -37,11 +43,25 @@ public class CasaController {
         return ResponseEntity.ok(casa);
     }
 
-    @DeleteMapping()
+    @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity<?> removerCasa(@PathVariable Long id){
         casaService.removerCasaById(id);
         return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping(value = "/{id}/maiorcomodo")
+    public ResponseEntity<?> buscaMaiorComodoCasa(@PathVariable Long id){
+        Comodo comodo = comodoService.achaMaiorComodo(id);
+        return ResponseEntity.ok(comodo);
+        //TODO verificar retorno ok quando não encontra o id
+    }
+
+    @GetMapping(value = "/{id}/tamanhocomodos")
+    public ResponseEntity<?> buscaListaComodosETamanhos(@PathVariable Long id){
+        List<ComodoResponseDTO> comodos = comodoService.listarComodosETamanhos(id);
+        return ResponseEntity.ok(comodos);
+        //TODO verificar retorno ok quando não encontra o id
     }
 
 }
