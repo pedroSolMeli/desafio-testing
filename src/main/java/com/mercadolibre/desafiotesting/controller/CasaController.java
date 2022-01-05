@@ -1,6 +1,6 @@
 package com.mercadolibre.desafiotesting.controller;
 
-import com.mercadolibre.desafiotesting.dto.CasaDTO;
+import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.service.CasaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,12 +31,14 @@ public class CasaController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> criarCasa(@Valid @RequestBody CasaDTO casaDTO){
+    @ResponseStatus(code = HttpStatus.CREATED)
+    public ResponseEntity<?> criarCasa(@Valid @RequestBody CasaRequestDTO casaDTO){
         Casa casa = casaService.criarCasa(casaDTO);
         return ResponseEntity.ok(casa);
     }
 
     @DeleteMapping()
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity<?> removerCasa(@PathVariable Long id){
         casaService.removerCasaById(id);
         return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
