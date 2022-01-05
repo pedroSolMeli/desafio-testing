@@ -28,12 +28,4 @@ public class LocalidadeDTO {
     @Digits(integer=19, fraction=2, message = "Não pode ter mais que 19 caracteres e 2 decimais")
     private BigDecimal precoM2;
 
-    public LocalidadeDTO convertToDto(Localidade obj) {
-        return LocalidadeDTO.builder().id(obj.getId()).nome(obj.getNome()).precoM2(obj.getPrecoM2()).build();
-    }
-
-    public Localidade convertToObject(LocalidadeDTO dto) {
-        return Localidade.builder().nome(dto.getNome()).precoM2(dto.getPrecoM2()).build();
-    }
-
 }

@@ -16,14 +16,13 @@ public class LocalidadeService {
 
     @Autowired
     private LocalidadeRepository localidadeRepository;
-    private LocalidadeDTO localidadeDTO = new LocalidadeDTO();
 
     public List<LocalidadeDTO> buscarTodos() {
 
         List<Localidade> localidades = localidadeRepository.findAll();
         List<LocalidadeDTO> result = new ArrayList<>();
         for (Localidade l : localidades) {
-            result.add(localidadeDTO.convertToDto(l));
+            result.add(ConvertToDto(l));
         }
         return result;
 
@@ -36,16 +35,16 @@ public class LocalidadeService {
         if (localidade == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
 
-        LocalidadeDTO result = localidadeDTO.convertToDto(localidade);
+        LocalidadeDTO result = ConvertToDto(localidade);
         return result;
 
     }
 
     public LocalidadeDTO criar(LocalidadeDTO localidadeDTO) {
 
-        Localidade novaLocalidade = localidadeDTO.convertToObject(localidadeDTO);
+        Localidade novaLocalidade = ConvertToObject(localidadeDTO);
         Localidade localidade = localidadeRepository.save(novaLocalidade);
-        LocalidadeDTO result = localidadeDTO.convertToDto(localidade);
+        LocalidadeDTO result = ConvertToDto(localidade);
 
         return result;
 
@@ -53,7 +52,7 @@ public class LocalidadeService {
 
     public LocalidadeDTO atualizarPorId(Long id, LocalidadeDTO localidadeDTO) {
 
-        Localidade novaLocalidade = localidadeDTO.convertToObject(this.buscarPorId(id));
+        Localidade novaLocalidade = ConvertToObject(this.buscarPorId(id));
 
         if (novaLocalidade == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
@@ -62,16 +61,24 @@ public class LocalidadeService {
         novaLocalidade.setPrecoM2(localidadeDTO.getPrecoM2());
 
         Localidade localidadeAtualizada = localidadeRepository.save(novaLocalidade);
-        LocalidadeDTO result = localidadeDTO.convertToDto(localidadeAtualizada);
+        LocalidadeDTO result = ConvertToDto(localidadeAtualizada);
 
         return result;
     }
 
     public void apagarPorId(Long id) {
-        Localidade result = localidadeDTO.convertToObject(this.buscarPorId(id));
+        Localidade result = ConvertToObject(this.buscarPorId(id));
         if (result == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
         localidadeRepository.deleteById(id);
+    }
+
+    public static LocalidadeDTO ConvertToDto(Localidade obj) {
+        return LocalidadeDTO.builder().id(obj.getId()).nome(obj.getNome()).precoM2(obj.getPrecoM2()).build();
+    }
+
+    public static Localidade ConvertToObject(LocalidadeDTO dto) {
+        return Localidade.builder().nome(dto.getNome()).precoM2(dto.getPrecoM2()).build();
     }
 
 }
