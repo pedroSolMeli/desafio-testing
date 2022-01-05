@@ -1,14 +1,19 @@
 package com.mercadolibre.desafiotesting.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
 import com.mercadolibre.desafiotesting.dto.ResponseComodoDTO;
 import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.ComodoRepository;
 
+
+@Service
 public class ComodoService {
 	@Autowired
 	ComodoRepository repository;
@@ -51,6 +56,19 @@ public class ComodoService {
 
 	private Boolean VerificaIdCasa(Long id) {
 		return repositoryCasa.existsById(id);
+	}
+	
+	
+	public static Comodo Converte(ComodoRequestDTO comodo) {
+		return Comodo.builder()
+			.nome(comodo.getNome())
+			.comprimento(comodo.getComprimento())
+			.largura(comodo.getLargura())
+			.build();
+	}
+	
+	public static List<Comodo> Converte(List<ComodoRequestDTO> comodos){
+		return comodos.stream().map(c -> Converte(c)).collect(Collectors.toList());
 	}
 
 }

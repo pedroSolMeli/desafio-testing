@@ -53,7 +53,7 @@ public class CasaService {
 
     private Casa convertToObject(CasaRequestDTO dto) {
         Localidade localidade = localidadeService.findById(dto.getLocalidadeId());
-        return Casa.builder().nome(dto.getNome()).comodos(dto.getComodos()).localidade(localidade).build();
+        return Casa.builder().nome(dto.getNome()).comodos(ComodoService.Converte(dto.getComodos())).localidade(localidade).build();
     }
 
 //
