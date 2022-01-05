@@ -1,29 +1,24 @@
 package com.mercadolibre.desafiotesting.dto;
 
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.validation.constraints.*;
 
 @Data
 @AllArgsConstructor
 public class ComodoRequestDTO {
 
-    @NotBlank(message = "A nome do comodo é obrigatório")
+    @NotBlank(message = "O campo não pode estar vazio.")
+    @Size(min = 3, max = 30, message = "O comprimento do nome não pode exceder 30 caracteres")
+    //@Pattern(regexp = "(?=.*[A-Z])[\\p{Punct}A-Z0-9 ]{1,32}", message = "outro erro")
     private String nome;
 
-    @NotNull(message = "A largura do comodo é obrigatório")
+    @NotEmpty(message = "A largura do cômodo não pode estar vazia.")
+    @Max( value = 25, message = "A largura permitida por cômodo é de 25 metros.")
     private Double largura;
 
-    @NotBlank(message = "A comprimento do comodo é obrigatório")
+    @NotEmpty(message = " O comprimento do cômodo não pode estar vazio.")
+    @Max( value = 25, message = "O comprimento permitido por cômodo é de 33 metros.")
     private Double comprimento;
 
 }
