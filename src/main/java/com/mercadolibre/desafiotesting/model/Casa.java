@@ -10,7 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity(name = "Casa")
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
@@ -23,8 +23,12 @@ public class Casa implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nome;
+
+	@ManyToOne
 	private Localidade localidade;
-	//private List<Comodo> comodos;
+
+	@OneToMany(cascade = CascadeType.ALL)
+	private List<Comodo> comodos;
 
 
 }

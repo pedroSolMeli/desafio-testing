@@ -12,7 +12,7 @@ import javax.persistence.Id;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity(name = "Localidade")
+@Entity
 @Data
 @Builder
 @NoArgsConstructor

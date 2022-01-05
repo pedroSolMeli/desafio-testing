@@ -11,7 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 
-@Entity(name = "Comodo")
+@Entity
 @Data
 @Builder
 @NoArgsConstructor
