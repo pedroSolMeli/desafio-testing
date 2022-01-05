@@ -1,7 +1,9 @@
 package com.mercadolibre.desafiotesting.repository;
 
+import com.mercadolibre.desafiotesting.model.Casa;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CasaRepository {
+public interface CasaRepository extends JpaRepository<Casa, Long> {
 }
