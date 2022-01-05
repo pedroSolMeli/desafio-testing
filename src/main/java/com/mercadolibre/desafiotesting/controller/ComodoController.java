@@ -14,7 +14,7 @@ import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.service.ComodoService;
 
 @RestController
-@RequestMapping("comodo/")
+@RequestMapping("/comodo")
 public class ComodoController {
 	
 	@Autowired
