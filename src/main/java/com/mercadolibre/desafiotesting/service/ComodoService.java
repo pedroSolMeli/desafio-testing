@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
-import com.mercadolibre.desafiotesting.dto.ResponseComodoDTO;
+import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
 import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.ComodoRepository;
@@ -21,7 +21,7 @@ public class ComodoService {
 	@Autowired
 	CasaRepository repositoryCasa;
 
-	private List<ResponseComodoDTO> comodosdto;
+	private List<ComodoResponseDTO> comodosdto;
 
 	public Comodo achaMaiorComodo(Long id) {
 		if (VerificaIdCasa(id)) {
@@ -39,12 +39,12 @@ public class ComodoService {
 		return null;
 	}
 
-	public List<ResponseComodoDTO> listarComodosETamanhos(Long id) {
+	public List<ComodoResponseDTO> listarComodosETamanhos(Long id) {
 		if (VerificaIdCasa(id)) {
 			List<Comodo> comodos = repositoryCasa.getById(id).getComodos();
 			comodosdto = null;
 			for (Comodo comodo : comodos) {
-				ResponseComodoDTO comodoDto = new ResponseComodoDTO(comodo);
+				ComodoResponseDTO comodoDto = new ComodoResponseDTO(comodo);
 				comodosdto.add(comodoDto);
 			}
 			return comodosdto;

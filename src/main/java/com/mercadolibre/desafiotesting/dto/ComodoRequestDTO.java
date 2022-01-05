@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
 @Data
@@ -19,7 +20,7 @@ public class ComodoRequestDTO {
     @NotBlank(message = "A nome do comodo é obrigatório")
     private String nome;
 
-    @NotBlank(message = "A largura do comodo é obrigatório")
+    @NotNull(message = "A largura do comodo é obrigatório")
     private Double largura;
 
     @NotBlank(message = "A comprimento do comodo é obrigatório")
