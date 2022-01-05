@@ -15,9 +15,8 @@ import java.util.List;
 public class LocalidadeService {
 
     @Autowired
-    LocalidadeRepository localidadeRepository;
-
-    LocalidadeDTO localidadeDTO = new LocalidadeDTO();
+    private LocalidadeRepository localidadeRepository;
+    private LocalidadeDTO localidadeDTO = new LocalidadeDTO();
 
     public List<LocalidadeDTO> findAll() {
 
@@ -54,7 +53,7 @@ public class LocalidadeService {
 
     public LocalidadeDTO updateById(Long id, LocalidadeDTO localidadeDTO) {
 
-        Localidade novaLocalidade = localidadeRepository.getById(id);
+        Localidade novaLocalidade = localidadeDTO.convertToObject(this.findById(id));
 
         if (novaLocalidade == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
@@ -69,7 +68,7 @@ public class LocalidadeService {
     }
 
     public void deleteById(Long id) {
-        Localidade result = localidadeRepository.getById(id);
+        Localidade result = localidadeDTO.convertToObject(this.findById(id));
         if (result == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
         localidadeRepository.deleteById(id);
