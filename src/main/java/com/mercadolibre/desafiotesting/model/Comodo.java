@@ -1,21 +1,28 @@
 package com.mercadolibre.desafiotesting.model;
 
-import java.util.List;
-
-import javax.persistence.Entity;
-
-
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import java.io.Serializable;
+
+@Entity(name = "Comodo")
 @Data
-@AllArgsConstructor
 @Builder
 @NoArgsConstructor
-public class Comodo {
+@AllArgsConstructor
+public class Comodo implements Serializable {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private String nome;
+    private Double largura;
+    private Double comprimento;
 
 }
