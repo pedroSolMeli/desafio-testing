@@ -2,6 +2,7 @@ package com.mercadolibre.desafiotesting.service;
 
 import com.mercadolibre.desafiotesting.dto.CasaDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
+import com.mercadolibre.desafiotesting.model.Localidade;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.LocalidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,9 @@ import java.util.List;
 
 @Service
 public class CasaService {
+
+    @Autowired
+    LocalidadeService localidadeService;
 
     @Autowired
     CasaRepository casaRepository;
@@ -26,18 +30,20 @@ public class CasaService {
         return casa;
     }
 
-    public Casa criarCasa(Casa casaDTO){
-        Casa casa = casaRepository.save(casaDTO);
+    public Casa criarCasa(CasaDTO casaDTO){
+        Casa casaConvertida = convertToObject(casaDTO);
+        Casa casa = casaRepository.save(casaConvertida);
         return casa;
     }
 
-    public void removerCasa(Long id){
+    public void removerCasaById(Long id){
         casaRepository.deleteById(id);
     }
 
 
     private Casa convertToObject(CasaDTO dto) {
-        return Casa.builder().nome(dto.getNome()).comodos(dto.getComodos()).localidade(new );
+        Localidade localidade = localidadeService.findById(dto.getLocalidadeId());
+        return Casa.builder().nome(dto.getNome()).comodos(dto.getComodos()).localidade(localidade).build();
     }
 //
 //    private CasaDTO convertToDto(Casa obj) {

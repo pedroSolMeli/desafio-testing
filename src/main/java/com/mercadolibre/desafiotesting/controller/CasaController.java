@@ -31,14 +31,14 @@ public class CasaController {
     }
 
     @PostMapping()
-    public ResponseEntity<?> criarCasa(@Valid @RequestBody Casa casaDTO){
+    public ResponseEntity<?> criarCasa(@Valid @RequestBody CasaDTO casaDTO){
         Casa casa = casaService.criarCasa(casaDTO);
         return ResponseEntity.ok(casa);
     }
 
     @DeleteMapping()
     public ResponseEntity<?> removerCasa(@PathVariable Long id){
-        casaService.removerCasa(id);
+        casaService.removerCasaById(id);
         return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
     }
 
