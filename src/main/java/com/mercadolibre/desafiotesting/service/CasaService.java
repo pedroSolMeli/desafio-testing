@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiotesting.service;
 
 import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
+import com.mercadolibre.desafiotesting.dto.LocalidadeDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Localidade;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
@@ -49,8 +50,8 @@ public class CasaService {
     }
 
     private Casa convertToObject(CasaRequestDTO dto) {
-        Localidade localidade = localidadeService.findById(dto.getLocalidadeId());
-        return Casa.builder().nome(dto.getNome()).comodos(ComodoService.Converte(dto.getComodos())).localidade(localidade).build();
+        LocalidadeDTO localidadeDTO = localidadeService.buscarPorId(dto.getLocalidadeId());
+        return Casa.builder().nome(dto.getNome()).comodos(ComodoService.Converte(dto.getComodos())).localidade(LocalidadeService.ConvertToObject(localidadeDTO)).build();
     }
 
 //
