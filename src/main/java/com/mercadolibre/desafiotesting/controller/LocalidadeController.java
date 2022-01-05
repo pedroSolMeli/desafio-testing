@@ -19,34 +19,34 @@ public class LocalidadeController {
 
     @GetMapping()
     public ResponseEntity<?> findAll(){
-        List<LocalidadeDTO> result = localidadeService.findAll();
+        List<LocalidadeDTO> result = localidadeService.buscarTodos();
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> findById(@PathVariable Long id){
-        LocalidadeDTO result = localidadeService.findById(id);
+        LocalidadeDTO result = localidadeService.buscarPorId(id);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
     public ResponseEntity<?> create(@Valid @RequestBody LocalidadeDTO localidadeDTO){
-        LocalidadeDTO result = localidadeService.create(localidadeDTO);
+        LocalidadeDTO result = localidadeService.criar(localidadeDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<?> update(@PathVariable Long id, @RequestBody LocalidadeDTO localidadeDTO){
-        localidadeService.updateById(id, localidadeDTO);
+        localidadeService.atualizarPorId(id, localidadeDTO);
         return new ResponseEntity<>("Updated localidade id: " + id, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<?> delete(@PathVariable Long id){
-        localidadeService.deleteById(id);
+        localidadeService.apagarPorId(id);
         return new ResponseEntity<>("Deleted localidade id: " + id,HttpStatus.OK);
     }
 

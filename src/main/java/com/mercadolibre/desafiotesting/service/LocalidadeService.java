@@ -18,7 +18,7 @@ public class LocalidadeService {
     private LocalidadeRepository localidadeRepository;
     private LocalidadeDTO localidadeDTO = new LocalidadeDTO();
 
-    public List<LocalidadeDTO> findAll() {
+    public List<LocalidadeDTO> buscarTodos() {
 
         List<Localidade> localidades = localidadeRepository.findAll();
         List<LocalidadeDTO> result = new ArrayList<>();
@@ -29,7 +29,7 @@ public class LocalidadeService {
 
     }
 
-    public LocalidadeDTO findById(Long id) {
+    public LocalidadeDTO buscarPorId(Long id) {
 
         Localidade localidade = localidadeRepository.findById(id).orElse(null);
 
@@ -41,7 +41,7 @@ public class LocalidadeService {
 
     }
 
-    public LocalidadeDTO create(LocalidadeDTO localidadeDTO) {
+    public LocalidadeDTO criar(LocalidadeDTO localidadeDTO) {
 
         Localidade novaLocalidade = localidadeDTO.convertToObject(localidadeDTO);
         Localidade localidade = localidadeRepository.save(novaLocalidade);
@@ -51,9 +51,9 @@ public class LocalidadeService {
 
     }
 
-    public LocalidadeDTO updateById(Long id, LocalidadeDTO localidadeDTO) {
+    public LocalidadeDTO atualizarPorId(Long id, LocalidadeDTO localidadeDTO) {
 
-        Localidade novaLocalidade = localidadeDTO.convertToObject(this.findById(id));
+        Localidade novaLocalidade = localidadeDTO.convertToObject(this.buscarPorId(id));
 
         if (novaLocalidade == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
@@ -67,8 +67,8 @@ public class LocalidadeService {
         return result;
     }
 
-    public void deleteById(Long id) {
-        Localidade result = localidadeDTO.convertToObject(this.findById(id));
+    public void apagarPorId(Long id) {
+        Localidade result = localidadeDTO.convertToObject(this.buscarPorId(id));
         if (result == null)
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
         localidadeRepository.deleteById(id);
