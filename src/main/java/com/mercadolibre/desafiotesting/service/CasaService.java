@@ -6,7 +6,9 @@ import com.mercadolibre.desafiotesting.model.Localidade;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.LocalidadeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
@@ -27,6 +29,10 @@ public class CasaService {
 
     public Casa buscarCasaPorId(Long id){
         Casa casa = casaRepository.getById(id);
+
+        if (casa == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
+
         return casa;
     }
 
@@ -37,6 +43,10 @@ public class CasaService {
     }
 
     public void removerCasaById(Long id){
+        Casa casa = casaRepository.getById(id);
+        if (casa == null)
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Casa with id: " + id + " not found");
+
         casaRepository.deleteById(id);
     }
 
