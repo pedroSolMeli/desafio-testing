@@ -18,18 +18,15 @@ public class LocalidadeService {
     private LocalidadeRepository localidadeRepository;
 
     public List<LocalidadeDTO> buscarTodos() {
-
         List<Localidade> localidades = localidadeRepository.findAll();
         List<LocalidadeDTO> result = new ArrayList<>();
         for (Localidade l : localidades) {
             result.add(ConvertToDto(l));
         }
         return result;
-
     }
 
     public LocalidadeDTO buscarPorId(Long id) {
-
         Localidade localidade = localidadeRepository.findById(id).orElse(null);
 
         if (localidade == null)
@@ -37,21 +34,17 @@ public class LocalidadeService {
 
         LocalidadeDTO result = ConvertToDto(localidade);
         return result;
-
     }
 
     public LocalidadeDTO criar(LocalidadeDTO localidadeDTO) {
-
         Localidade novaLocalidade = ConvertToObject(localidadeDTO);
         Localidade localidade = localidadeRepository.save(novaLocalidade);
         LocalidadeDTO result = ConvertToDto(localidade);
 
         return result;
-
     }
 
     public LocalidadeDTO atualizarPorId(Long id, LocalidadeDTO localidadeDTO) {
-
         Localidade novaLocalidade = ConvertToObject(this.buscarPorId(id));
 
         if (novaLocalidade == null)

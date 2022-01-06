@@ -27,11 +27,8 @@ public class LocalidadeServiceTest {
     LocalidadeService localidadeService;
 
     @Test
-    public void deveRetornarTodasAsCasaComSucesso(){
-        Localidade localidade = new Localidade();
-        localidade.setId(1l);
-        localidade.setNome("Santos");
-        localidade.setPrecoM2(BigDecimal.valueOf(5000));
+    public void deveRetornarTodasAsLocalidadeComSucesso(){
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
 
         List<Localidade>  lista = new ArrayList();
         lista.add(localidade);
@@ -48,11 +45,8 @@ public class LocalidadeServiceTest {
     }
 
     @Test
-    public void deveRetornarACasaPorIdComSucesso(){
-        Localidade localidade = new Localidade();
-        localidade.setId(1l);
-        localidade.setNome("Santos");
-        localidade.setPrecoM2(BigDecimal.valueOf(5000));
+    public void deveRetornarALocalidadePorIdComSucesso(){
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
 
         //when
         Mockito.when(localidadeRepository.findById(1l)).thenReturn(Optional.of(localidade));
@@ -66,8 +60,24 @@ public class LocalidadeServiceTest {
 
 
     @Test
-    public void deveRetornarACasaPorIdSemSucesso(){
+    public void deveRetornarALocalidadePorIdSemSucesso(){
         Assert.assertThrows(ResponseStatusException.class, () -> localidadeService.buscarPorId(1l));
     }
+
+    @Test
+    public void deveCriarALocalidadeComSucesso(){
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
+        LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
+
+        //when
+        Mockito.when(localidadeRepository.save(localidade)).thenReturn(localidade);
+        LocalidadeDTO localidadeDTOS = localidadeService.criar(localidadeDTO);
+
+        //then
+        Assert.assertEquals(localidadeDTOS.getId(), localidade.getId());
+        Assert.assertEquals(localidadeDTOS.getNome(), localidade.getNome());
+        Assert.assertEquals(localidadeDTOS.getPrecoM2(), localidade.getPrecoM2());
+    }
+
 
 }

@@ -49,7 +49,6 @@ public class ComodoService {
 
     public static List<ComodoResponseDTO> ConverteParaDTO(List<Comodo> obj, Long maiorComodo){
         return obj.stream().map(c -> ConverteParaDto(c, maiorComodo)).collect(Collectors.toList());
-
     }
 
 }
