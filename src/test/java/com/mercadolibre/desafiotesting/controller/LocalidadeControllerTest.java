@@ -1,6 +1,8 @@
 package com.mercadolibre.desafiotesting.controller;
 
 import com.mercadolibre.desafiotesting.dto.LocalidadeDTO;
+import com.mercadolibre.desafiotesting.model.Localidade;
+import com.mercadolibre.desafiotesting.repository.LocalidadeRepository;
 import com.mercadolibre.desafiotesting.service.LocalidadeService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,6 +26,9 @@ import static org.mockito.BDDMockito.given;
 @AutoConfigureMockMvc
 @ExtendWith(MockitoExtension.class)
 public class LocalidadeControllerTest {
+
+    @Mock
+    LocalidadeRepository localidadeRepository;
 
     @Mock
     LocalidadeService localidadeService;
@@ -57,7 +62,9 @@ public class LocalidadeControllerTest {
     public void deveRetornarLocalidadePorId() throws Exception {
 
         LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
         given(localidadeService.buscarPorId(1l)).willReturn(localidadeDTO);
+        given(localidadeRepository.findById(1l)).willReturn(localidadeDTO);
 
         MvcResult result = mockMvc
                 .perform(MockMvcRequestBuilders
