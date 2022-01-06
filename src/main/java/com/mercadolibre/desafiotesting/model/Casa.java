@@ -30,5 +30,5 @@ public class Casa implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL)
 	private List<Comodo> comodos;
 
-
+	private Double areaTotal;
 }

@@ -19,13 +19,13 @@ public class LocalidadeDTO {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @NotBlank(message = "Não pode ser vazio")
-    @Size(min = 5, max = 45, message = "Precisa ter entre 5 e 45 caracteres")
+    @NotBlank(message = "Nome da localidade não pode estar vazio")
+    @Size(max = 45, message = "Comprimento do nome da localidade não pode exceder 45 caracteres")
     private String nome;
 
-    @NotNull(message = "Não pode ser nulo")
+    @NotNull(message = "PrecoM2 não pode estar vazio")
     @DecimalMin(value = "0.0", inclusive = false, message = "Valor minimo é 0.0")
-    @Digits(integer=19, fraction=2, message = "Não pode ter mais que 19 caracteres e 2 decimais")
+    @Digits(integer=13, fraction=2, message = "PrecoM2 não pode exceder 13 caracteres")
     private BigDecimal precoM2;
 
 }

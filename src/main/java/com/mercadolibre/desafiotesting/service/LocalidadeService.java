@@ -67,9 +67,7 @@ public class LocalidadeService {
     }
 
     public void apagarPorId(Long id) {
-        Localidade result = ConvertToObject(this.buscarPorId(id));
-        if (result == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
+        this.buscarPorId(id);
         localidadeRepository.deleteById(id);
     }
 

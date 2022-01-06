@@ -1,22 +1,17 @@
 package com.mercadolibre.desafiotesting.dto;
 
 import com.mercadolibre.desafiotesting.model.Comodo;
-
+import com.mercadolibre.desafiotesting.service.ComodoService;
+import lombok.Builder;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Data
+@Builder
 public class ComodoResponseDTO {
 
 	private String nome;
-	private Double largura;
-	private Double comprimento;
-	private Double totalArea;
-	    
-	public ComodoResponseDTO(Comodo comodo) {
-		this.nome = comodo.getNome();
-		this.largura = comodo.getLargura();
-		this.comprimento = comodo.getComprimento();
-		this.totalArea = comodo.getComprimento()*comodo.getLargura();
-	}
+	private Double area;
+	private boolean maiorComodo;
 
 }
