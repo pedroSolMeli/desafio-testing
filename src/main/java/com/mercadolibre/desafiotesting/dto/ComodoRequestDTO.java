@@ -11,16 +11,17 @@ public class ComodoRequestDTO {
 
     @NotBlank(message = "O campo não pode estar vazio.")
     @Size(min = 3, max = 30, message = "O comprimento do nome não pode exceder 30 caracteres")
-    // todo - verificar validaçao
-    //@Pattern(regexp = "(?=.*[A-Z])[\\p{Punct}A-Z0-9 ]{1,32}", message = "outro erro")
+    @Pattern(regexp = "^([A-Z]{1})([a-z]{1,})$", message = "O nome do comodo deve começar com letra maiúscula")
     private String nome;
 
     @NotNull(message = "A largura do cômodo não pode estar vazia.")
-    @Max(value = 25, message = "A largura permitida por cômodo é de 25 metros.")
+    @Max(value = 25, message = "A largura máximma permitida por cômodo é de 25 metros.")
+    @Min(value = 0, message = "A largura mínima é 0")
     private Double largura;
 
     @NotNull(message = " O comprimento do cômodo não pode estar vazio.")
-    @Max(value = 25, message = "O comprimento permitido por cômodo é de 33 metros.")
+    @Max(value = 33, message = "O comprimento máximo permitido por cômodo é de 33 metros.")
+    @Min(value = 0, message = "O comprimento mínimo é 0")
     private Double comprimento;
 
 }
