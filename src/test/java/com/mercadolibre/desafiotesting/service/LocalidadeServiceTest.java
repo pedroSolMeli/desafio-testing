@@ -79,5 +79,38 @@ public class LocalidadeServiceTest {
         Assert.assertEquals(localidadeDTOS.getPrecoM2(), localidade.getPrecoM2());
     }
 
+    @Test
+    public void deveAtualizarALocalidadeComSucesso(){
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
+        LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
+
+        //when
+        Mockito.when(localidadeRepository.findById(1l)).thenReturn(Optional.of(localidade));
+        Mockito.when(localidadeRepository.save(localidade)).thenReturn(localidade);
+        LocalidadeDTO localidadeDTOS = localidadeService.atualizarPorId(1l, localidadeDTO);
+
+        //then
+        Assert.assertEquals(localidadeDTOS.getId(), localidade.getId());
+        Assert.assertEquals(localidadeDTOS.getNome(), localidade.getNome());
+        Assert.assertEquals(localidadeDTOS.getPrecoM2(), localidade.getPrecoM2());
+    }
+
+    @Test
+    public void deveAtualizarALocalidadeSemSucesso(){
+        LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
+
+        Assert.assertThrows(ResponseStatusException.class, () -> localidadeService.atualizarPorId(1l, localidadeDTO));
+    }
+
+    @Test
+    public void deveDeletarALocalidadeComSucesso(){
+        Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
+        LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
+
+        //when
+        Mockito.when(localidadeRepository.findById(1l)).thenReturn(Optional.of(localidade));
+        Mockito.doNothing().when(localidadeRepository).deleteById(1l);
+        localidadeService.apagarPorId(1l);
+    }
 
 }
