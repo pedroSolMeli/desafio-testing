@@ -37,15 +37,20 @@ public class ComodoServiceTest {
 	
 	
 	@Test
-	public void deveConverterUmComodoRequestDtoParaComodo() {
+	public void deveConverterUmaListaComodoRequestDtoParaListaComodo() {
 		// given
 		ComodoRequestDTO comodoDto = new ComodoRequestDTO("quarto",3.0,3.0);
+		ComodoRequestDTO comodoDto2 = new ComodoRequestDTO("quarto",3.0,3.0);
 		// when 
-		Comodo comodoObjeto = ComodoService.ConverteComodoRequestDtoParaComodo(comodoDto);
+		 List<ComodoRequestDTO>  listaDto = new ArrayList();
+	        listaDto.add(comodoDto);
+	        listaDto.add(comodoDto2);
+	        
+		List<Comodo> listComodoObjeto = ComodoService.ConverteComodoRequestDtoParaComodo(listaDto);
 		//then
-		Assert.assertEquals(comodoObjeto.getComprimento(), comodoDto.getComprimento());
-		Assert.assertEquals(comodoObjeto.getLargura(), comodoDto.getLargura());
-		Assert.assertEquals(comodoObjeto.getNome(), comodoDto.getNome());
+		Assert.assertTrue(!listComodoObjeto.isEmpty());
+		Assert.assertEquals(listComodoObjeto.size(), listaDto.size());
+		Assert.assertEquals(listComodoObjeto.get(0).getNome(), listaDto.get(0).getNome());
 	}
 	
 	
