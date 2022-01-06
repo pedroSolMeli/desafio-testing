@@ -47,9 +47,6 @@ public class LocalidadeService {
     public LocalidadeDTO atualizarPorId(Long id, LocalidadeDTO localidadeDTO) {
         Localidade novaLocalidade = ConvertToObject(this.buscarPorId(id));
 
-        if (novaLocalidade == null)
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Localidade with id: " + id + " not found");
-
         novaLocalidade.setNome(localidadeDTO.getNome());
         novaLocalidade.setPrecoM2(localidadeDTO.getPrecoM2());
 
