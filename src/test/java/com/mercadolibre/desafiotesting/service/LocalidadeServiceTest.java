@@ -105,7 +105,6 @@ public class LocalidadeServiceTest {
     @Test
     public void deveDeletarALocalidadeComSucesso(){
         Localidade localidade = new Localidade(1l, "Santos", BigDecimal.valueOf(5000));
-        LocalidadeDTO localidadeDTO = new LocalidadeDTO(1l, "Santos", BigDecimal.valueOf(5000));
 
         //when
         Mockito.when(localidadeRepository.findById(1l)).thenReturn(Optional.of(localidade));
