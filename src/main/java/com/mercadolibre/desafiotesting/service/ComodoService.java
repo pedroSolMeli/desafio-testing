@@ -2,14 +2,11 @@ package com.mercadolibre.desafiotesting.service;
 
 import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
 import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
-import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
-import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.ComodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 

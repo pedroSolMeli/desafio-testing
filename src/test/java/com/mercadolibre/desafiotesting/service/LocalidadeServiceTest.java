@@ -1,6 +1,5 @@
 package com.mercadolibre.desafiotesting.service;
 
-import com.mercadolibre.desafiotesting.controller.LocalidadeController;
 import com.mercadolibre.desafiotesting.dto.LocalidadeDTO;
 import com.mercadolibre.desafiotesting.model.Localidade;
 import com.mercadolibre.desafiotesting.repository.LocalidadeRepository;
@@ -11,10 +10,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @ExtendWith(MockitoExtension.class)
 public class LocalidadeServiceTest {
@@ -46,21 +47,27 @@ public class LocalidadeServiceTest {
         Assert.assertEquals(localidadeDTOS.get(0).getPrecoM2(), localidade.getPrecoM2());
     }
 
-//    @Test
-//    public void deveRetornarACasaPorIdComSucesso(){
-//        Localidade localidade = new Localidade();
-//        localidade.setId(1l);
-//        localidade.setNome("Santos");
-//        localidade.setPrecoM2(BigDecimal.valueOf(5000));
-//
-//        List<Localidade>  lista = new ArrayList();
-//        lista.add(localidade);
-//
-//        //when
-//        Mockito.when(localidadeRepository.findAll()).thenReturn(lista);
-//        List<LocalidadeDTO> localidadeDTOS = localidadeService.buscarTodos();
-//
-//        //then
-//    }
+    @Test
+    public void deveRetornarACasaPorIdComSucesso(){
+        Localidade localidade = new Localidade();
+        localidade.setId(1l);
+        localidade.setNome("Santos");
+        localidade.setPrecoM2(BigDecimal.valueOf(5000));
+
+        //when
+        Mockito.when(localidadeRepository.findById(1l)).thenReturn(Optional.of(localidade));
+        LocalidadeDTO localidadeDTOS = localidadeService.buscarPorId(1l);
+
+        //then
+        Assert.assertEquals(localidadeDTOS.getId(), localidade.getId());
+        Assert.assertEquals(localidadeDTOS.getNome(), localidade.getNome());
+        Assert.assertEquals(localidadeDTOS.getPrecoM2(), localidade.getPrecoM2());
+    }
+
+
+    @Test
+    public void deveRetornarACasaPorIdSemSucesso(){
+        Assert.assertThrows(ResponseStatusException.class, () -> localidadeService.buscarPorId(1l));
+    }
 
 }
