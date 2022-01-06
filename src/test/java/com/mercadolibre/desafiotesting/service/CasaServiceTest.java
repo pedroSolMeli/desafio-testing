@@ -58,6 +58,35 @@ public class CasaServiceTest {
 
     }
 
+    @Test
+    public void deveRetornarCasaPorIdComSucesso(){
+
+        //given
+        Localidade localidade = Localidade.builder().id(1L).nome("Morumbi").precoM2(new BigDecimal(50000)).build();
+        List<Comodo> comodos = new ArrayList<>();
+
+        Comodo banheiro = Comodo.builder().id(1L).nome("Banheiro").largura(2.0).comprimento(1.0).area(2.0).build();
+        Comodo escritorio = Comodo.builder().id(1L).nome("Escritorio").largura(5.0).comprimento(2.0).area(10.0).build();
+        comodos.add(banheiro);
+        comodos.add(escritorio);
+
+        Casa casa = Casa.builder().id(1L).nome("Residencia").localidade(localidade).comodos(comodos).areaTotal(12.0).build();
+
+        //when
+        Mockito.when(casaRepository.findById(1L)).thenReturn(Optional.ofNullable(casa));
+        CasaResponseDTO casaResponseDTO = casaService.buscarCasaPorId(1L);
+
+        //then
+
+        Assertions.assertEquals(casaResponseDTO.getId(),casa.getId());
+        Assertions.assertEquals(casaResponseDTO.getNome(), casa.getNome());
+        Assertions.assertEquals(casaResponseDTO.getBairro().getNome(), casa.getLocalidade().getNome());
+        Assertions.assertEquals(casaResponseDTO.getComodos().size(), casa.getComodos().size());
+        Assertions.assertEquals(casaResponseDTO.getAreaTotal(), casa.getAreaTotal());
+
+
+    }
+
 
     @Test
     public void deveRetornarAreaTotalDaPropriedadeComSucesso() {
