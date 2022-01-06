@@ -19,8 +19,8 @@ public class ComodoService {
     @Autowired
     CasaService casaService;
 
-    private static double CalculaAreaComodo(double largura, double comprimento) {
-        double area = largura * comprimento;
+    public static double CalculaAreaComodo(double largura, double comprimento) {
+    	double area = largura * comprimento;
         return area;
     }
 
