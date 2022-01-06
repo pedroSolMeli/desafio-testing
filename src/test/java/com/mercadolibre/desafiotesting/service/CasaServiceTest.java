@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
@@ -102,6 +103,8 @@ public class CasaServiceTest {
 
         Double areaTotal = casaService.calculaAreaTotal(comodos);
         Casa casa = Casa.builder().id(1L).nome("Residencia").localidade(localidade).comodos(comodos).areaTotal(areaTotal).build();
+        List<Casa> casaLista = new ArrayList<>();
+        casaLista.add(casa);
 
         //when
         Mockito.when(casaRepository.findById(1L)).thenReturn(Optional.ofNullable(casa));
@@ -112,5 +115,17 @@ public class CasaServiceTest {
 
     }
 
+    @Test
+
+    public void deveRetornaRemoverCasaByIdComSucesso(){
+
+        Casa casa = Casa.builder().id(2l).build();
+
+        //when
+        Mockito.when(casaRepository.findById(2L)).thenReturn(Optional.ofNullable(casa));
+        Mockito.doNothing().when(casaRepository).deleteById(2L);
+        casaService.removerCasaById(2L);
+
+    }
 
 }
