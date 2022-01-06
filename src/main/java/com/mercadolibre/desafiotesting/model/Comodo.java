@@ -24,5 +24,5 @@ public class Comodo implements Serializable {
     private String nome;
     private Double largura;
     private Double comprimento;
-
+    private Double area;
 }

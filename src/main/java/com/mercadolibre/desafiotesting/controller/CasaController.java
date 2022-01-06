@@ -1,6 +1,7 @@
 package com.mercadolibre.desafiotesting.controller;
 
 import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
+import com.mercadolibre.desafiotesting.dto.CasaResponseDTO;
 import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
@@ -32,7 +33,7 @@ public class CasaController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> buscarCasaPorId(@PathVariable Long id){
-       Casa casa = casaService.buscarCasaPorId(id);
+       CasaResponseDTO casa = casaService.buscarCasaPorId(id);
         return ResponseEntity.ok(casa);
     }
 
@@ -54,13 +55,6 @@ public class CasaController {
     public ResponseEntity<?> buscaMaiorComodoCasa(@PathVariable Long id){
         Comodo comodo = comodoService.achaMaiorComodo(id);
         return ResponseEntity.ok(comodo);
-        //TODO verificar retorno ok quando não encontra o id
-    }
-
-    @GetMapping(value = "/{id}/tamanhocomodos")
-    public ResponseEntity<?> buscaListaComodosETamanhos(@PathVariable Long id){
-        List<ComodoResponseDTO> comodos = comodoService.listarComodosETamanhos(id);
-        return ResponseEntity.ok(comodos);
         //TODO verificar retorno ok quando não encontra o id
     }
 
