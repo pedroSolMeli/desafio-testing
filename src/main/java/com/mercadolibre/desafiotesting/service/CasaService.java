@@ -79,7 +79,7 @@ public class CasaService {
         return Casa.builder().nome(dto.getNome()).comodos(comodos).localidade(localidade).areaTotal(areaTotal).build();
     }
 
-    private Double calculaAreaTotal(List<Comodo> comodos) {
+    protected Double calculaAreaTotal(List<Comodo> comodos) {
         Double area = 0.0;
         for (Comodo comodo : comodos) {
             area += comodo.getArea();
