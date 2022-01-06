@@ -11,6 +11,7 @@ public class ComodoRequestDTO {
 
     @NotBlank(message = "O campo não pode estar vazio.")
     @Size(min = 3, max = 30, message = "O comprimento do nome não pode exceder 30 caracteres")
+    // todo - verificar validaçao
     //@Pattern(regexp = "(?=.*[A-Z])[\\p{Punct}A-Z0-9 ]{1,32}", message = "outro erro")
     private String nome;
 

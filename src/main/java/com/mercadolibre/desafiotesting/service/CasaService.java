@@ -32,9 +32,26 @@ public class CasaService {
 
     public CasaResponseDTO buscarCasaPorId(Long id) {
         Casa casa = getCasa(id);
-        CasaResponseDTO result = converteParaDto(casa);
+
+        Comodo comodo = achaMaiorComodo(casa.getId());
+        CasaResponseDTO result = converteParaDto(casa, comodo.getId());
         return result;
     }
+
+
+    public Comodo achaMaiorComodo(Long casaId) {
+        Casa casa = getCasa(casaId);
+        Comodo maiorComodo = null;
+        Double maiorArea = (double) 0;
+        List<Comodo> comodos = casa.getComodos();
+        for (Comodo comodo : comodos) {
+            if (comodo.getArea() > maiorArea) {
+                maiorComodo = comodo;
+            }
+        }
+        return maiorComodo;
+    }
+
 
     public Casa criarCasa(CasaRequestDTO casaDTO) {
         Casa casaConvertida = convertToObject(casaDTO);
@@ -76,9 +93,9 @@ public class CasaService {
         return preco;
     }
 
-    private CasaResponseDTO converteParaDto(Casa casa) {
+    private CasaResponseDTO converteParaDto(Casa casa, Long maiorComodo) {
         LocalidadeDTO localidadeDTO = LocalidadeService.ConvertToDto(casa.getLocalidade());
-        List<ComodoResponseDTO> comodoResponseDTOS = ComodoService.ConverteParaDTO(casa.getComodos());
+        List<ComodoResponseDTO> comodoResponseDTOS = ComodoService.ConverteParaDTO(casa.getComodos(), maiorComodo);
         BigDecimal preco = calculaPreco(casa.getAreaTotal(), casa.getLocalidade().getPrecoM2());
 
         return CasaResponseDTO.builder().id(casa.getId())

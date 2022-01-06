@@ -4,10 +4,12 @@ import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
 import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
+import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.ComodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -19,19 +21,6 @@ public class ComodoService {
 
     @Autowired
     CasaService casaService;
-
-    public Comodo achaMaiorComodo(Long id) {
-        Casa casa = casaService.getCasa(id);
-        Comodo maiorComodo = null;
-        Double maiorArea = (double) 0;
-        List<Comodo> comodos = casa.getComodos();
-        for (Comodo comodo : comodos) {
-            if (comodo.getArea() > maiorArea) {
-                maiorComodo = comodo;
-            }
-        }
-        return maiorComodo;
-    }
 
     private static double CalculaAreaComodo(double largura, double comprimento) {
         double area = largura * comprimento;
@@ -51,15 +40,18 @@ public class ComodoService {
         return comodos.stream().map(c -> ConverteComodoRequestDtoParaComodo(c)).collect(Collectors.toList());
     }
 
-    public static ComodoResponseDTO ConverteParaDto(Comodo comodo) {
+    public static ComodoResponseDTO ConverteParaDto(Comodo comodo,  Long maiorComodo) {
+        boolean maior = comodo.getId().equals(maiorComodo) ? true: false;
+
         return ComodoResponseDTO.builder()
                 .nome(comodo.getNome())
                 .area(comodo.getArea())
+                .maiorComodo(maior)
                 .build();
     }
 
-    public static List<ComodoResponseDTO> ConverteParaDTO(List<Comodo> obj){
-        return obj.stream().map(c -> ConverteParaDto(c)).collect(Collectors.toList());
+    public static List<ComodoResponseDTO> ConverteParaDTO(List<Comodo> obj, Long maiorComodo){
+        return obj.stream().map(c -> ConverteParaDto(c, maiorComodo)).collect(Collectors.toList());
 
     }
 

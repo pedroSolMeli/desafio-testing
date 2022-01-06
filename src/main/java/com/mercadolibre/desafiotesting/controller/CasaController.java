@@ -51,11 +51,11 @@ public class CasaController {
         return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
     }
 
-    @GetMapping(value = "/{id}/maiorcomodo")
-    public ResponseEntity<?> buscaMaiorComodoCasa(@PathVariable Long id){
-        Comodo comodo = comodoService.achaMaiorComodo(id);
-        return ResponseEntity.ok(comodo);
-        //TODO verificar retorno ok quando não encontra o id
-    }
+//    @GetMapping(value = "/{id}/maiorcomodo")
+//    public ResponseEntity<?> buscaMaiorComodoCasa(@PathVariable Long id){
+//        Comodo comodo = comodoService.achaMaiorComodo(id);
+//        return ResponseEntity.ok(comodo);
+//        //TODO verificar retorno ok quando não encontra o id
+//    }
 
 }
