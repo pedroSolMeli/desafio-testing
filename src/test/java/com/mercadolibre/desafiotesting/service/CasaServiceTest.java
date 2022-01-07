@@ -14,9 +14,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.junit.MockitoJUnit;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -214,6 +213,11 @@ public class CasaServiceTest {
         //then
         Assertions.assertEquals(casaResponseDTO.getId(),casa.getId());
 
+    }
+
+    @Test
+    public void naoDeveRetornarGetCasaComSucesso(){
+        Assertions.assertThrows(ResponseStatusException.class, () -> casaService.getCasa(1L));
     }
 
     @Test
