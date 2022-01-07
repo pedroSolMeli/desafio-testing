@@ -2,14 +2,11 @@ package com.mercadolibre.desafiotesting.service;
 
 import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
 import com.mercadolibre.desafiotesting.dto.ComodoResponseDTO;
-import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
-import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.ComodoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -22,8 +19,8 @@ public class ComodoService {
     @Autowired
     CasaService casaService;
 
-    private static double CalculaAreaComodo(double largura, double comprimento) {
-        double area = largura * comprimento;
+    public static double CalculaAreaComodo(double largura, double comprimento) {
+    	double area = largura * comprimento;
         return area;
     }
 
@@ -52,7 +49,6 @@ public class ComodoService {
 
     public static List<ComodoResponseDTO> ConverteParaDTO(List<Comodo> obj, Long maiorComodo){
         return obj.stream().map(c -> ConverteParaDto(c, maiorComodo)).collect(Collectors.toList());
-
     }
 
 }
