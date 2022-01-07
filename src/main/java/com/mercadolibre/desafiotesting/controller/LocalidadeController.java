@@ -18,34 +18,34 @@ public class LocalidadeController {
     LocalidadeService localidadeService;
 
     @GetMapping()
-    public ResponseEntity<?> findAll(){
+    public ResponseEntity<?> buscarLocalidades(){
         List<LocalidadeDTO> result = localidadeService.buscarTodos();
         return ResponseEntity.ok(result);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> findById(@PathVariable Long id){
+    public ResponseEntity<?> buscarLocalidadePorId(@PathVariable Long id){
         LocalidadeDTO result = localidadeService.buscarPorId(id);
         return ResponseEntity.ok(result);
     }
 
     @PostMapping()
     @ResponseStatus(code = HttpStatus.CREATED)
-    public ResponseEntity<?> create(@Valid @RequestBody LocalidadeDTO localidadeDTO){
+    public ResponseEntity<?> criarLocalidade(@Valid @RequestBody LocalidadeDTO localidadeDTO){
         LocalidadeDTO result = localidadeService.criar(localidadeDTO);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<?> update(@PathVariable Long id, @RequestBody LocalidadeDTO localidadeDTO){
+    public ResponseEntity<?> atualizarLocalidade(@PathVariable Long id, @RequestBody LocalidadeDTO localidadeDTO){
         localidadeService.atualizarPorId(id, localidadeDTO);
         return new ResponseEntity<>("Updated localidade id: " + id, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(code = HttpStatus.OK)
-    public ResponseEntity<?> delete(@PathVariable Long id){
+    public ResponseEntity<?> deletarLocalidade(@PathVariable Long id){
         localidadeService.apagarPorId(id);
         return new ResponseEntity<>("Deleted localidade id: " + id,HttpStatus.OK);
     }
