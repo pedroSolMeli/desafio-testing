@@ -15,6 +15,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -115,33 +116,35 @@ public class CasaServiceTest {
     }
 
 
-    @Test //TODO CRIAR CASA NAO ESTA FUNCIONANDO
+    @Test
     public void deveCriarCasaComSucesso(){
-
         //given
         List<ComodoRequestDTO> comodosDTO = new ArrayList<>();
 
-        ComodoRequestDTO banheiroDTO = ComodoRequestDTO.builder().nome("Banheiro").largura(2.0).comprimento(1.0).build();
+        ComodoRequestDTO banheiroDTO= ComodoRequestDTO.builder().nome("Banheiro").largura(2.0).comprimento(1.0).build();
         ComodoRequestDTO escritorioDTO = ComodoRequestDTO.builder().nome("Escritorio").largura(1.0).comprimento(1.0).build();
+
         comodosDTO.add(banheiroDTO);
         comodosDTO.add(escritorioDTO);
 
         List<Comodo> comodos = new ArrayList<>();
 
-        Comodo banheiro = Comodo.builder().nome("Banheiro").largura(2.0).comprimento(1.0).build();
-        Comodo escritorio = Comodo.builder().nome("Escritorio").largura(1.0).comprimento(1.0).build();
+        Comodo banheiro = Comodo.builder().id(1l).nome("Banheiro").largura(1.0).comprimento(1.0).build();
+        Comodo escritorio = Comodo.builder().id(2l).nome("Escritorio").largura(1.0).comprimento(1.0).build();
         comodos.add(banheiro);
         comodos.add(escritorio);
 
         Localidade localidade = Localidade.builder().id(1L).nome("Morumbi").precoM2(new BigDecimal(50000)).build();
         LocalidadeDTO localidadeDTO = LocalidadeDTO.builder().id(1L).nome("Morumbi").precoM2(new BigDecimal(50000)).build();
 
-        Casa casa = Casa.builder().id(1L).nome("Casa do Seu zé").localidade(localidade).comodos(comodos).build();
-        CasaRequestDTO casaDTO = CasaRequestDTO.builder().nome("Casa do Seu zé").localidadeId(1L).comodos(comodosDTO).build();
+        Casa casa = Casa.builder().id(1L).nome("Casa").localidade(localidade).comodos(comodos).areaTotal(1.0).build();
+
+        CasaRequestDTO casaDTO = new CasaRequestDTO("casa", 1l, comodosDTO);
 
         //when
-        Mockito.when(localidadeService.buscarPorId(1L)).thenReturn(localidadeDTO);
-        Mockito.when(casaRepository.save(casa)).thenReturn(casa);
+        Mockito.when(localidadeService.buscarPorId(1l)).thenReturn(localidadeDTO);
+        Mockito.when(casaRepository.save(Mockito.any())).thenReturn(casa);
+
         Casa casaRequest = casaService.criarCasa(casaDTO);
 
         //then
