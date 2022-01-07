@@ -53,26 +53,26 @@ public class CasaControllerTest {
     }
 
 
-    @Test
-    public void deveRetornarCasaPorId() throws Exception {
-        localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
-        localidadeRepository.save(localidade);
-
-        Comodo comodoDto = new Comodo(1l,"Quarto",3.0,3.0,3.0);
-        List<Comodo> listaComodo = new ArrayList();
-        listaComodo.add(comodoDto);
-
-        casa = new Casa(1l,"Casa", localidade,listaComodo, 5.0);
-        casaRepository.save(casa);
-
-        MvcResult result = mockMvc
-                .perform(MockMvcRequestBuilders
-                        .get("/casa/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andReturn();
-
-        System.out.println(result.getResponse().getContentAsString());
-    }
+//    @Test
+//    public void deveRetornarCasaPorId() throws Exception {
+//        localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
+//        localidadeRepository.save(localidade);
+//
+//        Comodo comodoDto = new Comodo(1l,"Quarto",3.0,3.0,3.0);
+//        List<Comodo> listaComodo = new ArrayList();
+//        listaComodo.add(comodoDto);
+//
+//        casa = new Casa(1l,"Casa", localidade,listaComodo, 5.0);
+//        casaRepository.save(casa);
+//
+//        MvcResult result = mockMvc
+//                .perform(MockMvcRequestBuilders
+//                        .get("/casa/1"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andReturn();
+//
+//        System.out.println(result.getResponse().getContentAsString());
+//    }
 
     @Test
     public void deveCriarCasaPorIdComLetraDoNomeMinuscula() throws Exception {
@@ -114,22 +114,22 @@ public class CasaControllerTest {
     }
 
 
-    @Test
-    public void deveDeletarCasaPorId() throws Exception {
-        localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
-        localidadeRepository.save(localidade);
-
-        Comodo comodoDto = new Comodo(1l,"Quarto",3.0,3.0,3.0);
-        List<Comodo> listaComodo = new ArrayList();
-        listaComodo.add(comodoDto);
-
-        casa = new Casa(1l,"Casa", localidade,listaComodo, 5.0);
-        casaRepository.save(casa);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                .delete("/casa/1")
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
+//    @Test
+//    public void deveDeletarCasaPorId() throws Exception {
+//        localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
+//        localidadeRepository.save(localidade);
+//
+//        Comodo comodoDto = new Comodo(1l,"Quarto",3.0,3.0,3.0);
+//        List<Comodo> listaComodo = new ArrayList();
+//        listaComodo.add(comodoDto);
+//
+//        casa = new Casa(1l,"Casa", localidade,listaComodo, 5.0);
+//        casaRepository.save(casa);
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .delete("/casa/1")
+//                .contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(MockMvcResultMatchers.status().isOk());
+//    }
 
 }
