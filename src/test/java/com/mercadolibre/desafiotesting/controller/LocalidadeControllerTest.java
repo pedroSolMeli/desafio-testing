@@ -64,16 +64,16 @@ public class LocalidadeControllerTest {
     }
 
 
-    @Test
-    public void deveDeletarLocalidadePorId() throws Exception {
-        localidade = new Localidade(2l,"Santos",BigDecimal.valueOf(500.0));
-        localidadeRepository.save(localidade);
-
-        mockMvc.perform(MockMvcRequestBuilders
-                .delete("/localidade/2")
-                .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isNoContent());
-    }
+//    @Test
+//    public void deveDeletarLocalidadePorId() throws Exception {
+//        localidade = new Localidade(2l,"Santos",BigDecimal.valueOf(500.0));
+//        localidadeRepository.save(localidade);
+//
+//        mockMvc.perform(MockMvcRequestBuilders
+//                .delete("/localidade/2")
+//                .contentType(MediaType.APPLICATION_JSON))
+//            .andExpect(MockMvcResultMatchers.status().isNoContent());
+//    }
 
     @Test
     public void deveAtualizarLocalidadePorId() throws Exception {
