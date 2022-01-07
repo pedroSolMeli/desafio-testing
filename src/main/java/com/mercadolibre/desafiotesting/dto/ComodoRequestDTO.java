@@ -1,11 +1,13 @@
 package com.mercadolibre.desafiotesting.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.*;
 
 @Data
+@Builder
 @AllArgsConstructor
 public class ComodoRequestDTO {
 

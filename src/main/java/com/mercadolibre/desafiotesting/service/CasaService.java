@@ -40,11 +40,10 @@ public class CasaService {
 
     public Comodo achaMaiorComodoDaCasa(Long casaId) {
         Casa casa = getCasa(casaId);
-        Comodo maiorComodo = null;
-        Double maiorArea = (double) 0;
+        Comodo maiorComodo = Comodo.builder().area(0.0).build();
         List<Comodo> comodos = casa.getComodos();
         for (Comodo comodo : comodos) {
-            if (comodo.getArea() > maiorArea) {
+            if (comodo.getArea() > maiorComodo.getArea()) {
                 maiorComodo = comodo;
             }
         }
@@ -73,7 +72,10 @@ public class CasaService {
     }
 
     private Casa convertToObject(CasaRequestDTO dto) {
-        Localidade localidade = LocalidadeService.ConvertToObject(localidadeService.buscarPorId(dto.getLocalidadeId()));
+
+        LocalidadeDTO localidadeDTO = localidadeService.buscarPorId(dto.getLocalidadeId());
+
+        Localidade localidade = LocalidadeService.ConvertToObject(localidadeDTO);
         List<Comodo> comodos = ComodoService.ConverteComodoRequestDtoParaComodo(dto.getComodos());
         Double areaTotal = calculaAreaTotal(comodos);
         return Casa.builder().nome(dto.getNome()).comodos(comodos).localidade(localidade).areaTotal(areaTotal).build();

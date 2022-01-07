@@ -1,6 +1,9 @@
 package com.mercadolibre.desafiotesting.service;
 
+import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
 import com.mercadolibre.desafiotesting.dto.CasaResponseDTO;
+import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
+import com.mercadolibre.desafiotesting.dto.LocalidadeDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.model.Localidade;
@@ -24,9 +27,11 @@ public class CasaServiceTest {
     @Mock
     CasaRepository casaRepository;
 
+    @Mock
+    LocalidadeService localidadeService;
+
     @InjectMocks
     CasaService casaService;
-
 
     @Test
     public void deveRetornarTodasAsCasasComSucesso(){
@@ -86,6 +91,63 @@ public class CasaServiceTest {
 
 
     }
+
+    @Test
+    public void deveAcharMaiorComodoComSucesso(){
+
+        //given
+        List<Comodo> comodos = new ArrayList<>();
+
+        Comodo banheiro = Comodo.builder().id(1L).nome("Banheiro").largura(2.0).comprimento(1.0).area(2.0).build();
+        Comodo escritorio = Comodo.builder().id(2L).nome("Escritorio").largura(1.0).comprimento(1.0).area(1.0).build();
+        comodos.add(banheiro);
+        comodos.add(escritorio);
+
+        Casa casa = Casa.builder().id(1L).nome("Residencia").comodos(comodos).areaTotal(12.0).build();
+
+        //when
+        Mockito.when(casaRepository.findById(1L)).thenReturn(Optional.ofNullable(casa));
+        Comodo returnMaiorComodo = casaService.achaMaiorComodoDaCasa(1L);
+
+        //then
+        Assertions.assertEquals(returnMaiorComodo, banheiro);
+
+    }
+
+
+    @Test //TODO CRIAR CASA NAO ESTA FUNCIONANDO
+    public void deveCriarCasaComSucesso(){
+
+        //given
+        List<ComodoRequestDTO> comodosDTO = new ArrayList<>();
+
+        ComodoRequestDTO banheiroDTO = ComodoRequestDTO.builder().nome("Banheiro").largura(2.0).comprimento(1.0).build();
+        ComodoRequestDTO escritorioDTO = ComodoRequestDTO.builder().nome("Escritorio").largura(1.0).comprimento(1.0).build();
+        comodosDTO.add(banheiroDTO);
+        comodosDTO.add(escritorioDTO);
+
+        List<Comodo> comodos = new ArrayList<>();
+
+        Comodo banheiro = Comodo.builder().nome("Banheiro").largura(2.0).comprimento(1.0).build();
+        Comodo escritorio = Comodo.builder().nome("Escritorio").largura(1.0).comprimento(1.0).build();
+        comodos.add(banheiro);
+        comodos.add(escritorio);
+
+        Localidade localidade = Localidade.builder().id(1L).nome("Morumbi").precoM2(new BigDecimal(50000)).build();
+        LocalidadeDTO localidadeDTO = LocalidadeDTO.builder().id(1L).nome("Morumbi").precoM2(new BigDecimal(50000)).build();
+
+        Casa casa = Casa.builder().id(1L).nome("Casa do Seu zé").localidade(localidade).comodos(comodos).build();
+        CasaRequestDTO casaDTO = CasaRequestDTO.builder().nome("Casa do Seu zé").localidadeId(1L).comodos(comodosDTO).build();
+
+        //when
+        Mockito.when(localidadeService.buscarPorId(1L)).thenReturn(localidadeDTO);
+        Mockito.when(casaRepository.save(casa)).thenReturn(casa);
+        Casa casaRequest = casaService.criarCasa(casaDTO);
+
+        //then
+        Assertions.assertEquals(casaRequest.getNome(), casa.getNome());
+    }
+
 
 
     @Test
