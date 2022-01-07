@@ -1,15 +1,12 @@
 package com.mercadolibre.desafiotesting.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mercadolibre.desafiotesting.dto.CasaRequestDTO;
-import com.mercadolibre.desafiotesting.dto.ComodoRequestDTO;
 import com.mercadolibre.desafiotesting.model.Casa;
 import com.mercadolibre.desafiotesting.model.Comodo;
 import com.mercadolibre.desafiotesting.model.Localidade;
 import com.mercadolibre.desafiotesting.repository.CasaRepository;
 import com.mercadolibre.desafiotesting.repository.LocalidadeRepository;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +14,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -55,6 +51,7 @@ public class CasaControllerTest {
 
         System.out.println(result.getResponse().getContentAsString());
     }
+
 
     @Test
     public void deveRetornarCasaPorId() throws Exception {
@@ -116,8 +113,9 @@ public class CasaControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
+
     @Test
-    public void deveDeletarCasaPorId() throws Exception {
+    public void deveDeletarLocalidadePorId() throws Exception {
         localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
         localidadeRepository.save(localidade);
 
