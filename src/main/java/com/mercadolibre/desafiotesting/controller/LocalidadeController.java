@@ -44,10 +44,9 @@ public class LocalidadeController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
     public ResponseEntity<?> deletarLocalidade(@PathVariable Long id){
         localidadeService.apagarPorId(id);
-        return new ResponseEntity<>("Deleted localidade id: " + id,HttpStatus.OK);
+        return new ResponseEntity<>("Deleted localidade id: " + id, HttpStatus.OK);
     }
 
 }

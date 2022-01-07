@@ -115,7 +115,7 @@ public class CasaControllerTest {
 
 
     @Test
-    public void deveDeletarLocalidadePorId() throws Exception {
+    public void deveDeletarCasaPorId() throws Exception {
         localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
         localidadeRepository.save(localidade);
 
@@ -129,7 +129,7 @@ public class CasaControllerTest {
         mockMvc.perform(MockMvcRequestBuilders
                 .delete("/casa/1")
                 .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNoContent());
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
 }

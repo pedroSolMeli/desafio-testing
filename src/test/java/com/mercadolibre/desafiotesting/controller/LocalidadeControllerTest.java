@@ -66,13 +66,13 @@ public class LocalidadeControllerTest {
 
     @Test
     public void deveDeletarLocalidadePorId() throws Exception {
-        localidade = new Localidade(1l,"Santos",BigDecimal.valueOf(500.0));
+        localidade = new Localidade(2l,"Santos",BigDecimal.valueOf(500.0));
         localidadeRepository.save(localidade);
 
         mockMvc.perform(MockMvcRequestBuilders
-                .delete("/localidade/1")
+                .delete("/localidade/2")
                 .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(MockMvcResultMatchers.status().isOk());
+            .andExpect(MockMvcResultMatchers.status().isNoContent());
     }
 
     @Test

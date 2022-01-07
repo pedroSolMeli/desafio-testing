@@ -43,10 +43,9 @@ public class CasaController {
     }
 
     @DeleteMapping("/{id}")
-    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public ResponseEntity<?> removerCasa(@PathVariable Long id){
         casaService.removerCasaById(id);
-        return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>("Deleted article id: " + id, HttpStatus.OK);
     }
 
 }
